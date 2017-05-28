@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
+		"module": "amd",
 		"outDir": "build",
 		"lib": [
 			"dom", "es2015", "es2015.promise"
