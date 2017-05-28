@@ -18,6 +18,8 @@
   "dependencies": {
     "axios": "^0.16.1",
     "lodash": "^4.17.4",
-    "requirejs": "^2.3.3"
+    "requirejs": "^2.3.3",
+    "mocha": "^3.4.2",
+    "chai": "^4.0.0"
   }
 }

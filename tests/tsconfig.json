@@ -1,10 +1,14 @@
 {
 	"compilerOptions": {
+		"baseUrl": ".",
 		"module": "amd",
 		"lib": [
 			"dom", "es2015", "es2015.promise"
 		],
-		"strict": true
+		"strict": true,
+		"paths": {
+			"src": ["./../src"]
+		}
 	},
 	"include": [
 		"**/*.ts",

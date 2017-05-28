@@ -2,5 +2,7 @@ node_modules/
 bower_components/
 typings/
 tests/**/*.js
+tests/lib/**/*.*
+tests/js/**/*.*
 src/**/*.js
 build/
