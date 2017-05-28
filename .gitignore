@@ -1,5 +1,0 @@
-node_modules/
-typings/
-tests/**/*.js
-src/**/*.js
-build/
