@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { add, multiply } from './../src/sample';
+import { add, multiply } from 'src/sample';
 describe('Sample', () => {
 	it('should add correctly', () => {
 		expect(add(1, 1)).to.equal(2);

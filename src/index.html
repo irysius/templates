@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<title>Template Site</title>
+		<link rel="stylesheet" type="text/css" href="css/site.css"></link>
+		<script>
+			var require = {
+				paths: {
+					axios: 'lib/axios',
+					lodash: 'lib/lodash'
+				},
+				urlArgs: new Date().getTime().toString()
+			};
+		</script>
+		<script src="lib/require.js" data-main="main.js"></script>
+	</head>
+	<body>
+		<h1>Hello World</h1>
+	</body>
+</html>

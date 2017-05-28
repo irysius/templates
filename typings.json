@@ -1,7 +1,10 @@
 {
   "name": "template",
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "registry:dt/lodash#4.14.0+20170324155812"
+  },
   "globalDependencies": {
+    "axios": "registry:dt/axios#0.9.1+20161016142654",
     "chai": "registry:dt/chai#3.4.0+20170217154556",
     "mocha": "registry:dt/mocha#2.2.5+20170311011848"
   }

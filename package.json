@@ -9,9 +9,16 @@
   "author": "Lester Sy",
   "license": "ISC",
   "devDependencies": {
+    "browser-sync": "^2.18.12",
     "chai": "^4.0.0",
     "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
     "mocha": "^3.4.2",
     "rimraf": "^2.6.1"
+  },
+  "dependencies": {
+    "axios": "^0.16.1",
+    "lodash": "^4.17.4",
+    "requirejs": "^2.3.3"
   }
 }

@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<title>Template Tests</title>
+		<link rel="stylesheet" href="lib/mocha.css">
+		<script src="lib/mocha.js"></script>
+		<script>
+			mocha.setup('bdd');
+		</script>
+		<script>
+			var require = {
+				paths: {
+					axios: 'lib/axios',
+					lodash: 'lib/lodash',
+					chai: 'lib/chai',
+					src: 'js'
+				},
+				urlArgs: new Date().getTime().toString()
+			};
+		</script>
+		<script src="lib/require.js" data-main="main.js"></script>
+	</head>
+	<body>
+		<div id="mocha"></div>
+	</body>
+</html>
