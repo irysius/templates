@@ -25,9 +25,9 @@ gulp.task('copy-test', function () {
 
 gulp.task('copy-deps', function (done) {
 	gulp.src([
-		'bower_components/axios/dist/axios.min.js',
-		'bower_components/lodash/dist/lodash.min.js',
-		'bower_components/requirejs/require.js'
+		'node_modules/axios/dist/axios.min.js',
+		'node_modules/lodash/lodash.min.js',
+		'node_modules/requirejs/require.js'
 	]).pipe(rename(function (path) {
 		path.basename = path.basename.replace(/\.min/g, '');
 	})).pipe(gulp.dest('build/lib'));
