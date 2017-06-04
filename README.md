@@ -1,9 +1,22 @@
-# Template Project
+# TypeScript+CommonJs
+This repo serves as a starting template for projects that want:
 
-## Prerequisites
-
-Typescript 2.3.3+
+- TypeScript 2.3+, with strict checks
+- Targeting server side javascript using NodeJs
 
 ## Setup
+Run the following commands in order:
 
-Initialize the project with `npm install`, `typings install`
+	$ npm install
+	$ typings install
+
+## Usage
+To rebuild the app, use one of the following commands:
+
+	$ gulp compile
+	$ gulp watch
+
+To run tests, use the following command:
+
+	$ gulp compile-test
+	$ mocha ./tests
