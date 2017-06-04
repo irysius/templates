@@ -6,7 +6,9 @@
 			var require = {
 				paths: {
 					axios: 'lib/axios',
-					lodash: 'lib/lodash'
+					lodash: 'lib/lodash',
+					react: 'lib/react',
+					'react-dom': 'lib/react-dom'
 				},
 				urlArgs: new Date().getTime().toString()
 			};
@@ -14,6 +16,6 @@
 		<script src="lib/require.js" data-main="main.js"></script>
 	</head>
 	<body>
-		<h1>Hello World</h1>
+		<div id="mount"></div>
 	</body>
 </html>

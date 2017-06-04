@@ -5,10 +5,12 @@
 		"lib": [
 			"dom", "es2015", "es2015.promise"
 		],
-		"strict": true
+		"strict": true,
+		"jsx": "react"
 	},
 	"include": [
 		"src/**/*.ts",
+		"src/**/*.tsx",
 		"typings/index.d.ts"
 	]
 }

@@ -28,20 +28,36 @@ gulp.task('copy-deps', function (done) {
 	gulp.src([
 		'node_modules/axios/dist/axios.min.js',
 		'node_modules/lodash/lodash.min.js',
-		'node_modules/requirejs/require.js'
+		'node_modules/requirejs/require.js',
+		'node_modules/react/dist/react.js',
+		'node_modules/react-dom/dist/react-dom.min.js'
 	]).pipe(rename(function (path) {
 		path.basename = path.basename.replace(/\.min/g, '');
 	})).pipe(gulp.dest('build/lib'));
 });
 
 gulp.task('fix-typings', function (done) {
-	fs.readFile('./typings/modules/lodash/index.d.ts', (err, data) => {
-		if (err) { done(err); return; }
-		var text = data.toString();
-		var fixedText = text.replace('export as namespace _;', '');
-		fs.writeFile('./typings/modules/lodash/index.d.ts', fixedText, err => {
-			done(err);
+	function fixGlobalModuleExports(module, lineToReplace) {
+		var moduleLocation = './typings/modules/' + module + '/index.d.ts';
+		return new Promise((resolve, reject) => {
+			fs.readFile(moduleLocation, (err, data) => {
+				if (err) { reject(err); return; }
+				var text = data.toString();
+				var fixedText = text.replace(lineToReplace, '');
+				fs.writeFile(moduleLocation, fixedText, err => {
+					err ? reject(err) : resolve();
+				});
+			});
 		});
+	}
+	Promise.all([
+		fixGlobalModuleExports('lodash', 'export as namespace _;'),
+		fixGlobalModuleExports('react', 'export as namespace React;'),
+		fixGlobalModuleExports('react-dom', 'export as namespace ReactDOM;')
+	]).then(() => {
+		done();
+	}).catch(err => {
+		done(err);
 	});
 });
 
@@ -52,7 +68,9 @@ gulp.task('copy-deps-test', function (done) {
 		'node_modules/requirejs/require.js',
 		'node_modules/chai/chai.js',
 		'node_modules/mocha/mocha.js',
-		'node_modules/mocha/mocha.css'
+		'node_modules/mocha/mocha.css',
+		'node_modules/react/dist/react.js',
+		'node_modules/react-dom/dist/react-dom.min.js'
 	]).pipe(rename(function (path) {
 		path.basename = path.basename.replace(/\.min/g, '');
 	})).pipe(gulp.dest('tests/lib'));
