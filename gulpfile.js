@@ -35,14 +35,27 @@ gulp.task('copy-deps', function (done) {
 });
 
 gulp.task('fix-typings', function (done) {
-	fs.readFile('./typings/modules/lodash/index.d.ts', (err, data) => {
-		if (err) { done(err); return; }
-		var text = data.toString();
-		var fixedText = text.replace('export as namespace _;', '');
-		fs.writeFile('./typings/modules/lodash/index.d.ts', fixedText, err => {
-			done(err);
+	function fixGlobalModuleExports(module, lineToReplace) {
+		var moduleLocation = './typings/modules/' + module + '/index.d.ts';
+		return new Promise((resolve, reject) => {
+			fs.readFile(moduleLocation, (err, data) => {
+				if (err) { reject(err); return; }
+				var text = data.toString();
+				var fixedText = text.replace(lineToReplace, '');
+				fs.writeFile(moduleLocation, fixedText, err => {
+					err ? reject(err) : resolve();
+				});
+			});
 		});
+	}
+	Promise.all([
+		fixGlobalModuleExports('lodash', 'export as namespace _;')
+	]).then(() => {
+		done();
+	}).catch(err => {
+		done(err);
 	});
+	
 });
 
 gulp.task('copy-deps-test', function (done) {
