@@ -8,8 +8,6 @@ This repo serves as a starting template for projects that want:
 Run the following commands in order:
 
 	$ npm install
-	$ typings install
-	$ gulp setup
 
 ## Usage
 To rebuild the app, use one of the following commands:
