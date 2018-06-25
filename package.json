@@ -1,0 +1,38 @@
+{
+  "name": "templates",
+  "version": "1.0.0",
+  "description": "- typescript+commonjs\r - typescript+requirejs\r - typescript+requirejs+react",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/irysius/templates.git"
+  },
+  "author": "Lester Sy <lestersy@hotmail.com> (https://lestersy.io)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/irysius/templates/issues"
+  },
+  "homepage": "https://github.com/irysius/templates#readme",
+  "devDependencies": {
+    "@types/chai": "^4.1.4",
+    "@types/express": "^4.16.0",
+    "@types/lodash": "^4.14.110",
+    "@types/mocha": "^5.2.3",
+    "@types/node": "^10.3.5",
+    "@types/socket.io": "^1.4.36",
+    "@types/socket.io-client": "^1.4.32",
+    "chai": "^4.1.2",
+    "gulp": "^3.9.1",
+    "mocha": "^5.2.0",
+    "typescript": "^2.9.2"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "lodash": "^4.17.10",
+    "requirejs": "^2.3.5",
+    "socket.io": "^2.1.1"
+  }
+}

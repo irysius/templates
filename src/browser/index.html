@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Application</title>
+    <script>
+        var require = {
+            paths: {
+                'lodash': 'lib/lodash',
+                'socket.io-client': 'socket.io/socket.io'
+            },
+            urlArgs: new Date().getTime().toString()
+        };
+    </script>
+    <script src="lib/require.js" data-main="main.js"></script>
+</head>
+<body>
+    <h1>This is an application</h1>
+    <p>Server time is currently: <span id="serverTime">N/A</span></p>
+</body>
+</html>
