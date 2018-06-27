@@ -1,0 +1,36 @@
+html {
+    height: 100%;
+}
+body {
+	padding: 0; margin: 0;
+    overflow: hidden;
+    height: 100%;
+}
+#container {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	-webkit-touch-callout: none;
+	user-select: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	overflow: hidden;
+}
+#container-div {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0; left: 0;
+	pointer-events: none;
+}
+#container-canvas {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0; left: 0;
+}
+.interactible {
+	pointer-events: auto;
+}

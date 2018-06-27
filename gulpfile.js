@@ -4,7 +4,9 @@ var exec = require('child_process').exec;
 gulp.task('setup', () => {
     return gulp.src([
         'node_modules/requirejs/require.js',
-        'node_modules/lodash/lodash.js'
+        'node_modules/lodash/lodash.js',
+        'node_modules/react/umd/react.development.js',
+        'node_modules/react-dom/umd/react-dom.development.js'
     ]).pipe(gulp.dest('src/browser/lib'));
 });
 gulp.task('compile-browser', (done) => {

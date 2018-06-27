@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Application</title>
+    <link rel="stylesheet" type="text/css" href="css/site.css"></link>
     <script>
         var require = {
             paths: {
                 'lodash': 'lib/lodash',
-                'socket.io-client': 'socket.io/socket.io'
+                'socket.io-client': 'socket.io/socket.io',
+                'react': 'lib/react.development',
+                'react-dom': 'lib/react-dom.development'
             },
             urlArgs: new Date().getTime().toString()
         };
@@ -17,7 +20,9 @@
     <script src="lib/require.js" data-main="main.js"></script>
 </head>
 <body>
-    <h1>This is an application</h1>
-    <p>Server time is currently: <span id="serverTime">N/A</span></p>
+    <div id="container" style="background-color: #6495ed">
+        <div id="container-canvas"></div>
+        <div id="container-div" unselectable="on" onselectstart="return false;" onmousedown="return false;"></div>
+    </div>
 </body>
 </html>
