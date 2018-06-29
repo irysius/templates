@@ -12,7 +12,8 @@
                 'lodash': 'lib/lodash',
                 'socket.io-client': 'socket.io/socket.io',
                 'react': 'lib/react.development',
-                'react-dom': 'lib/react-dom.development'
+                'react-dom': 'lib/react-dom.development',
+                'pixi': 'lib/pixi'
             },
             urlArgs: new Date().getTime().toString()
         };
@@ -20,7 +21,7 @@
     <script src="lib/require.js" data-main="main.js"></script>
 </head>
 <body>
-    <div id="container" style="background-color: #6495ed">
+    <div id="container">
         <div id="container-canvas"></div>
         <div id="container-div" unselectable="on" onselectstart="return false;" onmousedown="return false;"></div>
     </div>

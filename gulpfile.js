@@ -6,7 +6,8 @@ gulp.task('setup', () => {
         'node_modules/requirejs/require.js',
         'node_modules/lodash/lodash.js',
         'node_modules/react/umd/react.development.js',
-        'node_modules/react-dom/umd/react-dom.development.js'
+        'node_modules/react-dom/umd/react-dom.development.js',
+        'node_modules/pixi.js/dist/pixi.js'
     ]).pipe(gulp.dest('src/browser/lib'));
 });
 gulp.task('compile-browser', (done) => {
