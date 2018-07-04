@@ -11,7 +11,7 @@ let divMount = document.getElementById('container-div');
 ReactDOM.render(<Sample socket={socket}/>, divMount);
 
 let canvasMount = document.getElementById('container-canvas');
-PixiRenderer({ mount: canvasMount, socket });
+PixiRenderer({ mount: canvasMount, socket: io('/game') });
 
 console.log('Hello World');
 console.log(`lodash version: ${_.VERSION}`);

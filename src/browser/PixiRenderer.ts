@@ -23,8 +23,6 @@ export function PixiRenderer(options: IOptions) {
             break;
     }
     
-    
-
     let stage = new PIXI.Container();
     let ticker = new PIXI.ticker.Ticker();
     ticker.add(render);
@@ -34,8 +32,13 @@ export function PixiRenderer(options: IOptions) {
     sprite.anchor.set(0.5);
     stage.addChild(sprite);
 
-    socket.on('rotation', angle => {
-        sprite.rotation = angle;
+    socket.on('connect', () => {
+        socket.emit('hail', { cameraId: 'player', size: { width: 0, height: 0 }});
+    });
+
+    socket.on('update', state => {
+        sprite.rotation = state.pencil.test.rotation;
+        // console.log(state);
     });
     
     window.addEventListener('resize', resize);
