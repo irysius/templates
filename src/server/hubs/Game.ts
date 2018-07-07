@@ -1,10 +1,12 @@
 import * as _ from 'lodash';
-import { ComponentState, StateArray, IComponentManager } from "./ComponentManager";
-import { Hub, HubTemplate, augmentHub } from '@irysius/anguli-components/Hub';
+import { ComponentState, StateArray, IComponentManager } from "./../ComponentManager";
+import { Hub, HubTemplate, augmentHub, HubSend } from '@irysius/anguli-components/Hub';
 import { ISize } from '@irysius/grid-math/Size';
-import { Camera, ICamera } from './Camera';
+import { Camera, ICamera } from './../components/Camera';
 import { IVector2 } from '@irysius/grid-math/Vector2';
 import { IRect } from '@irysius/grid-math/Rect';
+import { Game } from './../../shared/Game';
+import { ISessionManager } from '../SessionManager';
 
 // Filters are most likely only location based?
 // With remote exceptions based on some other criteria (like party members)
@@ -28,34 +30,31 @@ interface ComponentUpdate {
         [id: string]: ComponentState;
     };
 }
-interface IReceive {
-    hail: IViewport;
-}
-interface ISend {
-    update: ComponentUpdate;
-}
-interface IOptions {
-    io: SocketIO.Server;
-    componentManager: IComponentManager;
-}
+type IReceive = Game.Hub.IReceive;
+type ISend = Game.Hub.ISend;
+
+
 type Iter<T> = (item: T) => void;
 function forEach<T>(hash: IMap<T>, iter: Iter<T>) {
     Object.keys(hash).forEach(key => {
         iter(hash[key]);
     });
 }
-interface IViewport {
-    cameraId: string;
-    size: ISize;
-}
 
 // Make grid-math do this.
 function isInView(position: IVector2, viewport: IRect) {
     return true;
 }
-
+export interface IGameHub extends Hub<IReceive, ISend> {
+    broadcast(results: StateArray[]): void;
+}
+export interface IOptions {
+    io: SocketIO.Server;
+    sessionManager: ISessionManager;
+    componentManager: IComponentManager;
+}
 export function GameHub(options: IOptions) {
-    let { io, componentManager }  = options;
+    let { io, componentManager, sessionManager }  = options;
     let clients: IMap<IClient> = {};
 
     function connect(socket: SocketIO.Socket) {
@@ -103,18 +102,18 @@ export function GameHub(options: IOptions) {
         });
     }
 
-    function hail(payload: IViewport, socket: SocketIO.Socket) {
-        console.log(payload);
-        let camera = componentManager.find('camera', payload.cameraId) as ICamera;
+    function clientState(this: HubSend<ISend>, payload: Game.IClientState, socket: SocketIO.Socket) {
+        let user = sessionManager.getUser(socket);
+        let camera = componentManager.find('camera', user.username) as ICamera;
         if (!camera) {
-            camera = Camera({ id: payload.cameraId });
+            camera = Camera({ id: user.username });
             componentManager.register(camera);
         }
-        camera.setViewport(payload.size);
+        camera.setViewport(payload.viewportSize);
 
         clients[socket.id] = {
             socketId: socket.id,
-            cameraId: payload.cameraId,
+            cameraId: user.username,
             filter: (state) => {
                 return isInView(state.position, camera.getState().viewport);
             }
@@ -124,14 +123,16 @@ export function GameHub(options: IOptions) {
     let template: HubTemplate<IReceive, ISend> = {
         path: '/game',
         connect, disconnect,
-        receive: { hail },
+        receive: {
+            clientState,
+            input: null
+        },
         sendTypes: { update: null }
     };
 
-    augmentHub(template, io);
-    let hub = template as Hub<IReceive, ISend>;
+    augmentHub(template, io, [sessionManager.middleware]);
+    let hub = template as IGameHub;
+    hub.broadcast = broadcast;
 
-    return {
-        broadcast
-    };
+    return hub;
 }

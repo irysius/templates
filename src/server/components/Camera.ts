@@ -1,4 +1,4 @@
-import { IGameComponent } from "./GameEngine";
+import { IGameComponent } from "./../GameEngine";
 import { ISize } from "@irysius/grid-math/Size";
 import { IVector2 } from "@irysius/grid-math/Vector2";
 import { IRect } from "@irysius/grid-math/Rect";
@@ -25,6 +25,7 @@ interface IOptions {
 }
 export interface ICamera extends IGameComponent<IState> {
     setViewport(size: ISize): void;
+    setPosition(position: IVector2): void;
 }
 export function Camera(options: IOptions): ICamera {
     let { id } = options;
@@ -41,9 +42,13 @@ export function Camera(options: IOptions): ICamera {
         state.viewport.width = size.width;
         state.viewport.height = size.height;
     }
+    function setPosition(position: IVector2) {
+        state.viewport.x = position.x;
+        state.viewport.y = position.y;
+    }
 
     return {
         type: 'camera', id,
-        getState, setViewport
+        getState, setViewport, setPosition
     };
 }

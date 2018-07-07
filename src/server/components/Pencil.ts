@@ -1,4 +1,4 @@
-import { IGameComponent } from "./GameEngine";
+import { IGameComponent } from "./../GameEngine";
 interface IState {
     rotation: number;
 }

@@ -1,11 +1,10 @@
 import * as PIXI from 'pixi';
 export interface IOptions {
-    socket: SocketIOClient.Socket;
     mount: HTMLElement;
 }
 export function PixiRenderer(options: IOptions) {
     let {
-        mount, socket
+        mount
     } = options;
     let renderer = PIXI.autoDetectRenderer(
         800, 600, { backgroundColor: 0x93CCEA, antialias: true });
@@ -32,14 +31,9 @@ export function PixiRenderer(options: IOptions) {
     sprite.anchor.set(0.5);
     stage.addChild(sprite);
 
-    socket.on('connect', () => {
-        socket.emit('hail', { cameraId: 'player', size: { width: 0, height: 0 }});
-    });
-
-    socket.on('update', state => {
+    function update(state) {
         sprite.rotation = state.pencil.test.rotation;
-        // console.log(state);
-    });
+    }
     
     window.addEventListener('resize', resize);
     function resize() {
@@ -58,6 +52,5 @@ export function PixiRenderer(options: IOptions) {
     //     sprite.rotation += 0.05 * delta;
     //     render();
     // }
-
-    
+    return { update };
 }

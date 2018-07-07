@@ -1,6 +1,4 @@
-import * as _ from 'lodash';
-import { ComponentManager, StateArray, IComponentManager } from './ComponentManager';
-import { Hub } from '@irysius/anguli-components/Hub';
+import { IComponentManager } from './ComponentManager';
 
 export interface IGameComponent<T> {
     readonly id: string;
@@ -53,11 +51,9 @@ export function GameEngine(options: IOptions) {
     function pause() {
         isPaused = true;
     }
-
     function update(deltaFrame: number) {
         componentManager.update(deltaFrame);
     }
-
     function register(component: IGameComponent<any>) {
         componentManager.register(component);
     }

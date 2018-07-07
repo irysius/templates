@@ -4,9 +4,11 @@ import * as express from 'express';
 import * as socketio from 'socket.io';
 import { AddressInfo } from 'net';
 import { GameEngine } from './GameEngine';
-import { Pencil } from './Pencil';
-import { GameHub } from './GameHub';
+import { Pencil } from './components/Pencil';
+import { GameHub } from './hubs/Game';
+import { AuthenticationHub } from './hubs/Authentication';
 import { ComponentManager } from './ComponentManager';
+import { SessionManager } from './SessionManager';
 let settings = require('./settings.json');
 
 let app = express();
@@ -30,7 +32,11 @@ let io = socketio(httpServer);
 // let hubs = router.setup('./src/server/');
 // let gameHub = (hubs['GameHub'] as IGameHub);
 let componentManager = ComponentManager();
-let gameHub = GameHub({ io, componentManager });
+let sessionManager = SessionManager();
+let authHub = AuthenticationHub({ io, sessionManager });
+let gameHub = GameHub({ 
+    io, componentManager, sessionManager
+});
 componentManager.on('broadcast', gameHub.broadcast);
 let gameEngine = GameEngine({ componentManager });
 gameEngine.register(Pencil({ id: 'test' }));
