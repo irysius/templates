@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var exec = require('child_process').exec;
 var sequence = require('run-sequence');
 
-gulp.task('setup', () => {
+gulp.task('setup-base', () => {
     return gulp.src([
         'node_modules/requirejs/require.js',
         'node_modules/lodash/lodash.js',
@@ -15,6 +15,14 @@ gulp.task('setup-anguli', () => {
     return gulp.src([
         'node_modules/@irysius/anguli-components/**/*.js'
     ]).pipe(gulp.dest('src/browser/lib/anguli-components'));
+});
+gulp.task('setup-grid-math', () => {
+    return gulp.src([
+        'node_modules/@irysius/grid-math/**/*.js'
+    ]).pipe(gulp.dest('src/browser/lib/grid-math'));
+});
+gulp.task('setup', (done) => {
+    sequence('setup-base', 'setup-anguli', 'setup-grid-math', done);
 });
 gulp.task('compile-browser', (done) => {
     exec('node-tsc -p src/browser', (err, stdout, stderr) => {

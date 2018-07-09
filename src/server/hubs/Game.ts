@@ -119,13 +119,23 @@ export function GameHub(options: IOptions) {
             }
         };
     }
+    function reconcileState(this: HubSend<ISend>, payload: Game.IReconcileState, socket: SocketIO.Socket) {
+        Object.keys(payload).forEach(type => {
+            Object.keys(payload[type]).forEach(id => {
+                let component = componentManager.find(type, id);
+                if (component && component.reconcile) {
+                    component.reconcile(payload[type][id]);
+                }
+            });
+        })
+    }
 
     let template: HubTemplate<IReceive, ISend> = {
         path: '/game',
         connect, disconnect,
         receive: {
             clientState,
-            input: null
+            reconcileState
         },
         sendTypes: { update: null }
     };

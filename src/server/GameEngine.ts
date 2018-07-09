@@ -6,6 +6,7 @@ export interface IGameComponent<T> {
     update?(deltaFrame: number): void;
     consolidate?(): void; // is there a better way to handle this?
     getState?(fullState?: boolean): T;
+    reconcile?(state): void;
 }
 
 interface IOptions {

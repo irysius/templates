@@ -35,7 +35,7 @@
     "typescript": "^2.9.2"
   },
   "dependencies": {
-    "@irysius/grid-math": "0.0.6",
+    "@irysius/grid-math": "0.0.7",
     "express": "^4.16.3",
     "lodash": "^4.17.10",
     "pixi.js": "^4.8.1",

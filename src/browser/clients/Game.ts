@@ -33,7 +33,7 @@ export function GameClient(options: IOptions) {
                 viewportSize: { width: 600, height: 400 } 
             });
         },
-        sendTypes: { clientState: null, input: null },
+        sendTypes: { clientState: null, reconcileState: null },
         receive: {
             update: renderer.update
         },
@@ -44,5 +44,6 @@ export function GameClient(options: IOptions) {
 
     augmentClient(template, io);
     let client = template as IGameClient;
+    renderer.setClient(client); // TODO: Figure out if there's another way.
     return client;
 }

@@ -1,8 +1,8 @@
 import { ComponentState } from "./../server/ComponentManager";
 import { ISize } from "@irysius/grid-math/Size";
 export namespace Game {
-    export interface IInput {
-        input: string;
+    export interface IReconcileState {
+        [key: string]: any;
     }
     export interface IClientState {
         viewportSize: ISize;
@@ -18,7 +18,7 @@ export namespace Game {
         // update server with client state, like viewport size
         clientState: IClientState;
         // update server with user input
-        input: IInput;
+        reconcileState: IReconcileState;
     }
     export namespace Hub {
         export interface ISend extends IHubSend {
