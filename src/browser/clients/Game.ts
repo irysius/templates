@@ -35,7 +35,8 @@ export function GameClient(options: IOptions) {
         },
         sendTypes: { clientState: null, reconcileState: null },
         receive: {
-            update: renderer.update
+            update: renderer.update,
+            globalSettings: renderer.globalSettings
         },
         error: (err) => {
             console.error(err);

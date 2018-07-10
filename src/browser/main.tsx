@@ -8,8 +8,9 @@ import { AuthenticationClient } from './clients/Authentication';
 import { GameClient } from './clients/Game';
 import { Keyboard } from './Input';
 
-let socket = io();
-
+let socket = io({ autoConnect: false }); 
+// turns out this needs to be set to false, otherwise rooms will auto connect anyways.
+socket.open();
 let divMount = document.getElementById('container-div');
 ReactDOM.render(<Sample socket={socket}/>, divMount);
 
@@ -21,7 +22,7 @@ authClient.on('success', token => {
     let gameClient = GameClient({ io, token, renderer });
     gameClient.open();
 });
-authClient.open();
+authClient.open(); 
 
 console.log('Hello World');
 console.log(`lodash version: ${_.VERSION}`);

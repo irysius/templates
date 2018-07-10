@@ -14,6 +14,10 @@ export interface IOptions {
 export function AuthenticationHub(options: IOptions): IAuthenticationHub {
     let { io, sessionManager } = options;
 
+    function connect(socket: SocketIO.Socket) {
+        console.log(`connected: ${socket.id}`);
+    }
+
     function authenticate(this: HubSend<ISend>, creds: Authentication.ICredentials, socket: SocketIO.Socket) {
         // NOTE: For the purposes of this example, authentication always succeeds.
         let token = sessionManager.create(socket, creds);
@@ -22,6 +26,7 @@ export function AuthenticationHub(options: IOptions): IAuthenticationHub {
 
     let template: HubTemplate<IReceive, ISend> = {
         path: '/authenticate',
+        connect,
         receive: { 
             authenticate
         },

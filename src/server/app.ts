@@ -9,6 +9,12 @@ import { GameHub } from './hubs/Game';
 import { AuthenticationHub } from './hubs/Authentication';
 import { ComponentManager } from './ComponentManager';
 import { SessionManager } from './SessionManager';
+import { CoordManager } from '@irysius/grid-math/CoordManager';
+import { cellOffset as makeCellOffset } from '@irysius/grid-math/Cell';
+import { create as s } from '@irysius/grid-math/Size';
+import { create as r_screen } from '@irysius/grid-math/ScreenRect';
+import { create as v_world } from "@irysius/grid-math/WorldPosition";
+import Gravity from '@irysius/grid-math/Gravity';
 let settings = require('./settings.json');
 
 let app = express();
@@ -34,13 +40,17 @@ let io = socketio(httpServer);
 let componentManager = ComponentManager();
 let sessionManager = SessionManager();
 let authHub = AuthenticationHub({ io, sessionManager });
+let coordManager = CoordManager({
+    cellSize: s(200, 200),
+    cellOffset: makeCellOffset(s(200, 200), Gravity.Center)
+});
 let gameHub = GameHub({ 
-    io, componentManager, sessionManager
+    io, componentManager, sessionManager, coordManager
 });
 componentManager.on('broadcast', gameHub.broadcast);
 let gameEngine = GameEngine({ componentManager });
 
-gameEngine.register(Pencil({ id: 'test' }));
+gameEngine.register(Pencil({ id: 'test', coordManager }));
 
 // Timer(io);
 

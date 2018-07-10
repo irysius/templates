@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi';
 import { IVector2 } from '@irysius/grid-math/Vector2';
-import { CoordManager } from '@irysius/grid-math/CoordManager';
+import { CoordManager, IServerState } from '@irysius/grid-math/CoordManager';
 import { create as r_screen } from '@irysius/grid-math/ScreenRect';
 import { create as s } from '@irysius/grid-math/Size';
 import { create as v_world, IWorldPosition } from '@irysius/grid-math/WorldPosition';
@@ -15,21 +15,23 @@ export function PixiRenderer(options: IOptions) {
     let {
         mount, keyboard
     } = options;
-    let renderer = PIXI.autoDetectRenderer(
-        800, 600, { backgroundColor: 0x93CCEA, antialias: true });
-    
-    let coordManager = CoordManager({ 
-        state: {
-            cellSize: s(20, 20),
-            cellOffset: makeCellOffset(s(20, 20), Gravity.Center),
-            gridBounds: r_screen(0, 0, 800, 600),
-            position: v_world(0, 0)
-        } 
-    });
+
     // let renderer = new PIXI.CanvasRenderer({
     //     width: 800, height: 600,
     //     backgroundColor: 0x93CCEA
     // });
+    let renderer = PIXI.autoDetectRenderer(
+        800, 600, { backgroundColor: 0x93CCEA, antialias: true });
+    
+    let coordManager = CoordManager({
+        gridBounds: r_screen(0, 0, 800, 600),
+        position: v_world(0, 0)
+    });
+
+    function globalSettings(state: IServerState) {
+        console.log(state);
+        coordManager.updateWithState(state);
+    }
     mount.appendChild(renderer.view);
     switch (renderer.type) {
         case PIXI.RENDERER_TYPE.CANVAS:
@@ -52,7 +54,7 @@ export function PixiRenderer(options: IOptions) {
     // let position: IVector2 = null;
     let cameraPosition: IWorldPosition = v_world(0, 0);
     function update(state) {
-        
+        Object.keys(state)
         let pencilState = state.pencil.test;
         sprite.rotation = pencilState.rotation;
         let position = coordManager.toScreenPosition(pencilState.position);
@@ -112,5 +114,5 @@ export function PixiRenderer(options: IOptions) {
     function reconcile(state) {
         _client && _client.send.reconcileState(state);
     }
-    return { update, setClient };
+    return { update, globalSettings, setClient };
 }

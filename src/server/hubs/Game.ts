@@ -7,6 +7,7 @@ import { IVector2 } from '@irysius/grid-math/Vector2';
 import { IRect } from '@irysius/grid-math/Rect';
 import { Game } from './../../shared/Game';
 import { ISessionManager } from '../SessionManager';
+import { ICoordManager } from '@irysius/grid-math/CoordManager';
 
 // Filters are most likely only location based?
 // With remote exceptions based on some other criteria (like party members)
@@ -50,15 +51,24 @@ export interface IGameHub extends Hub<IReceive, ISend> {
 }
 export interface IOptions {
     io: SocketIO.Server;
+    coordManager: ICoordManager;
     sessionManager: ISessionManager;
     componentManager: IComponentManager;
 }
 export function GameHub(options: IOptions) {
-    let { io, componentManager, sessionManager }  = options;
+    let { 
+        io, 
+        componentManager, 
+        sessionManager, 
+        coordManager 
+    } = options;
+    
     let clients: IMap<IClient> = {};
 
-    function connect(socket: SocketIO.Socket) {
+    function connect(this: HubSend<ISend>, socket: SocketIO.Socket) {
         console.log(`connected: ${socket.id}`);
+        let { cellSize, cellOffset } = coordManager.getState();
+        this.globalSettings({ cellSize, cellOffset });
     }
     function disconnect(socket: SocketIO.Socket, reason: string) {
         delete clients[socket.id];
@@ -138,7 +148,7 @@ export function GameHub(options: IOptions) {
             clientState,
             reconcileState
         },
-        sendTypes: { update: null }
+        sendTypes: { update: null, globalSettings: null }
     };
 
     augmentHub(template, io, [sessionManager.middleware]);
