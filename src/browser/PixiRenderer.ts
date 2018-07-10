@@ -18,13 +18,11 @@ export function PixiRenderer(options: IOptions) {
     let renderer = PIXI.autoDetectRenderer(
         800, 600, { backgroundColor: 0x93CCEA, antialias: true });
     
-    let x = mount.getBoundingClientRect().left;
-    let y = mount.getBoundingClientRect().top;
     let coordManager = CoordManager({ 
         state: {
             cellSize: s(20, 20),
             cellOffset: makeCellOffset(s(20, 20), Gravity.Center),
-            gridBounds: r_screen(x, y, 800, 600),
+            gridBounds: r_screen(0, 0, 800, 600),
             position: v_world(0, 0)
         } 
     });

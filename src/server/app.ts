@@ -39,6 +39,7 @@ let gameHub = GameHub({
 });
 componentManager.on('broadcast', gameHub.broadcast);
 let gameEngine = GameEngine({ componentManager });
+
 gameEngine.register(Pencil({ id: 'test' }));
 
 // Timer(io);

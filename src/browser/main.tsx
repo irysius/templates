@@ -8,7 +8,6 @@ import { AuthenticationClient } from './clients/Authentication';
 import { GameClient } from './clients/Game';
 import { Keyboard } from './Input';
 
-
 let socket = io();
 
 let divMount = document.getElementById('container-div');
@@ -23,7 +22,6 @@ authClient.on('success', token => {
     gameClient.open();
 });
 authClient.open();
-
 
 console.log('Hello World');
 console.log(`lodash version: ${_.VERSION}`);

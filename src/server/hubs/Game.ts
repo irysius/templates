@@ -104,6 +104,7 @@ export function GameHub(options: IOptions) {
 
     function clientState(this: HubSend<ISend>, payload: Game.IClientState, socket: SocketIO.Socket) {
         let user = sessionManager.getUser(socket);
+        if (!user) { return; }
         let camera = componentManager.find('camera', user.username) as ICamera;
         if (!camera) {
             camera = Camera({ id: user.username });
