@@ -1,5 +1,5 @@
 import { Hub, HubTemplate, augmentHub, HubSend } from '@irysius/anguli-components/Hub';
-import { Authentication } from './../../shared/Authentication';
+import { Authentication } from '../../shared/Authentication';
 import { ISessionManager } from '../SessionManager';
 type IReceive = Authentication.Hub.IReceive;
 type ISend = Authentication.Hub.ISend;

@@ -60,9 +60,7 @@ export function GameEngine(options: IOptions) {
     }
 
     return {
-        run: run,
-        pause: pause,
-        register: register
+        run, pause, register
     };
 }
 

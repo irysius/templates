@@ -1,4 +1,4 @@
-import { ComponentState } from "./../server/ComponentManager";
+import { ComponentState } from "../server/ComponentManager";
 import { ISize } from "@irysius/grid-math/Size";
 import { ICellOffset } from "@irysius/grid-math/Cell";
 export namespace Game {

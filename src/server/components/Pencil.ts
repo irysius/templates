@@ -1,4 +1,4 @@
-import { IGameComponent } from "./../GameEngine";
+import { IGameComponent } from "../GameEngine";
 import { ICoordManager } from '@irysius/grid-math/CoordManager';
 import { create as v_world, IWorldPosition } from "@irysius/grid-math/WorldPosition";
 import { create as v_cell, ICellCoord } from '@irysius/grid-math/CellCoord';

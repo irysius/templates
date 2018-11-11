@@ -1,4 +1,4 @@
-import { IGameComponent } from "./../GameEngine";
+import { IGameComponent } from "../GameEngine";
 import { ISize } from "@irysius/grid-math/Size";
 import { IVector2 } from "@irysius/grid-math/Vector2";
 import { IRect } from "@irysius/grid-math/Rect";
